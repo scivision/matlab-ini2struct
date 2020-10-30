@@ -14,7 +14,7 @@ f = fopen(filename,'r');                    % open file
 
 while ~feof(f)                              % and read until it ends
   s = strtrim(fgetl(f));                  % remove leading/trailing spaces
-  if isempty(s) || s(1)==';' || s(1)=='#' % skip empty & comments lines
+  if is_comment(s) % skip empty & comments lines
     continue
   end
   if s(1)=='['                            % section header
@@ -26,7 +26,7 @@ while ~feof(f)                              % and read until it ends
   [Key,Val] = strtok(s, '=');             % Key = Value ; comment
   Val = strtrim(Val(2:end));              % remove spaces after =
 
-  if isempty(Val) || Val(1)==';' || Val(1)=='#' % empty entry
+  if is_comment(Val) % empty entry
     Val = [];
   elseif Val(1)=='"'                      % double-quoted string
     Val = strtok(Val, '"');
@@ -52,3 +52,11 @@ end
 fclose(f);
 
 end % function
+
+
+function i = is_comment(line)
+% a comment line detected
+
+i = isempty(line) || any(startsWith(line, [";", "#"]));
+
+end
