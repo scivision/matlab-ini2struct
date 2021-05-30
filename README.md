@@ -1,2 +1,1 @@
-# matlab-ini2struct
-Matlab: read .ini file to struct()
+Moved to [Matlab-stdlib](https://github.com/geospace-code/matlab-stdlib).
